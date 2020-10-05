@@ -1,0 +1,13 @@
+# Write your query or mutation here
+query {
+  home {
+    id
+    title
+    photos {
+      id
+      url
+      name
+      alternativeText
+    }
+  }
+}

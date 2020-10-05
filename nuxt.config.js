@@ -30,13 +30,16 @@ export default {
     */
     css: [
         "bulma",
-        { src: '~/assets/main.scss', lang: 'scss' }
+        "vue-slick-carousel/dist/vue-slick-carousel.css",
+        "vue-slick-carousel/dist/vue-slick-carousel-theme.css",
+        { src: '~/assets/main.scss', lang: 'scss' },
     ],
     /*
     ** Plugins to load before mounting the App
     ** https://nuxtjs.org/guide/plugins
     */
     plugins: [
+        { src: './plugins/vue-slick-carousel.js' }
     ],
     /*
     ** Auto import components
@@ -47,9 +50,10 @@ export default {
     ** Nuxt.js dev-modules
     */
     buildModules: [
-        "@nuxtjs/fontawesome"
+        "@nuxtjs/fontawesome",
     ],
     fontawesome: {},
+    styleResources: {},
     /*
     ** Nuxt.js modules
     */
