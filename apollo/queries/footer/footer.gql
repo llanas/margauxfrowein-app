@@ -1,0 +1,16 @@
+query {
+	footer {
+    id
+    socialmediaLink {
+      id
+      title
+      link
+      icon {
+        title
+        faName
+      }
+    }
+    contact
+    thanks
+  }
+}

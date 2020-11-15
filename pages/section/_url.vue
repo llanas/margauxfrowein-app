@@ -4,7 +4,10 @@
       :title="sections[0].title"
       :description="sections[0].description"
     ></HeaderComponent>
-    <section v-if="sections[0].photos != null && sections[0].photos.length > 0">
+    <section
+      v-if="sections[0].photos != null && sections[0].photos.length > 0"
+      class="hero"
+    >
       <div class="sections-grid">
         <div
           v-for="photo in sections[0].photos"
@@ -27,14 +30,6 @@
                   : '',
             }"
           ></div>
-          <transition name="fade">
-            <div
-              class="section-card-filter"
-              v-show="hoveredPhoto != null && hoveredPhoto == photo.id"
-            >
-              <span>{{ photo.title }}</span>
-            </div>
-          </transition>
         </div>
       </div>
     </section>

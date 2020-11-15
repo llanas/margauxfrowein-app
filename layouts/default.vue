@@ -31,15 +31,58 @@
       </div>
     </nav>
     <Nuxt />
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <div>
+          <a
+            v-for="socialmediaLink of footer.socialmediaLink"
+            :key="socialmediaLink.id"
+            :href="socialmediaLink.link"
+            target="_blank"
+            class="mx-2"
+          >
+            <span class="icon is-medium">
+              <font-awesome-icon
+                :icon="['fab', socialmediaLink.icon.faName]"
+                class="is-size-4"
+              />
+            </span>
+          </a>
+        </div>
+        <div class="footer-text">
+          <p class="mb-0">
+            Contactez Margaux à
+            <a :href="'mailto:' + footer.contact" class="link-dark">{{
+              footer.contact
+            }}</a>
+            pour plus d'information
+          </p>
+          <p class="footer-thanks">
+            Website handcrafted by
+            <a href="https://github.com/llanas" target="_blank"
+              >Boris MAURENCE @llanas</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
+import footerQuery from "~/apollo/queries/footer/footer";
+
 export default {
   data() {
     return {
       isBurgerToggled: false,
     };
+  },
+  apollo: {
+    footer: {
+      prefetch: true,
+      query: footerQuery,
+    },
   },
 };
 </script>
@@ -49,8 +92,8 @@ export default {
 
 .navbar {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0);
   width: 100%;
+  background-color: rgba(0, 0, 0, 0);
   color: whitesmoke;
 }
 
@@ -63,5 +106,9 @@ export default {
 .navbar-item {
   min-width: 180px;
   justify-content: center;
+}
+
+.footer {
+  background: rgb(19, 19, 19);
 }
 </style>
