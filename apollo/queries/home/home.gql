@@ -3,11 +3,25 @@ query {
   home {
     id
     title
-    photos {
+    cover {
       id
-      url
-      name
-      alternativeText
+      image {
+        id
+        url
+        formats
+      }
+    }
+    sections {
+        id
+        title
+    		cover {
+          id
+          image {
+            id
+            formats
+          }
+        }
+      	url
     }
   }
 }

@@ -1,0 +1,26 @@
+query Sections($url: ID!) {
+  sections(where: {url: $url}) {
+    id
+    title
+    description
+    url
+    cover {
+        id
+        image {
+            id
+            url
+            formats
+        }
+    }
+    photos {
+      id
+      title
+      ratio
+      image {
+          id
+          url
+          formats
+      }
+    }
+  }
+}

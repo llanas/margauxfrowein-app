@@ -2,13 +2,40 @@
 @import '~bulma/sass/utilities/initial-variables';
 @import '~bulma/sass/utilities/functions';
 
+$navbar-item-color: whitesmoke;
 
 /* Import the rest of Bulma */
 @import '~bulma';
 
-.coverImage {
-    height:100%;
+.app {
+    background: rgb(19, 19, 19);
+}
+
+.cover-image {
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+/* PC */
+@media screen and (min-width: 600px) {
+    :root {
+      --spacing: 1rem;
+      --margin: 10rem;
+    }
+}
+  
+/* Tablette */
+@media screen and (min-width: 480px) and (max-width: 600px) {
+    :root {
+      --spacing: 2rem;
+    }
+}
+  
+/* Mobile */
+@media screen and (max-width: 480px) {
+    :root {
+      --spacing: 1rem;
+    }
 }

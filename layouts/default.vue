@@ -4,10 +4,8 @@
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item">
-            <p>
-              Margaux
-              <i>FROWEIN</i>
-            </p>
+            Margaux
+            <i>FROWEIN</i>
           </a>
           <a
             role="button"
@@ -48,6 +46,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "~assets/main.scss";
+
+.navbar {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  color: whitesmoke;
+}
 
 .navbar-start {
   flex-grow: 1;

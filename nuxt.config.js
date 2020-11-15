@@ -1,10 +1,8 @@
 
 export default {
-    /*
-    ** Nuxt rendering mode
-    ** See https://nuxtjs.org/api/configuration-mode
-    */
-    mode: 'universal',
+    env: {
+        strapiBaseUri: process.env.API_URL || "http://localhost:1338"
+    },
     /*
     ** Nuxt target
     ** See https://nuxtjs.org/api/configuration-target
@@ -22,7 +20,8 @@ export default {
             { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' }
         ]
     },
     /*
@@ -30,8 +29,6 @@ export default {
     */
     css: [
         "bulma",
-        "vue-slick-carousel/dist/vue-slick-carousel.css",
-        "vue-slick-carousel/dist/vue-slick-carousel-theme.css",
         { src: '~/assets/main.scss', lang: 'scss' },
     ],
     /*
@@ -39,7 +36,6 @@ export default {
     ** https://nuxtjs.org/guide/plugins
     */
     plugins: [
-        { src: './plugins/vue-slick-carousel.js' }
     ],
     /*
     ** Auto import components
@@ -81,5 +77,10 @@ export default {
                 }
             }
         },
+    },
+    generate: {
+        minify: {
+            collapseWhitespace: false
+        }
     }
 }
