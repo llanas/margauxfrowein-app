@@ -36,6 +36,7 @@ export default {
     ** https://nuxtjs.org/guide/plugins
     */
     plugins: [
+        { src: '@/plugins/nuxt-awesome-swiper.js', mode: 'client' },
     ],
     /*
     ** Auto import components

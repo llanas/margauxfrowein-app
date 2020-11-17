@@ -16,6 +16,7 @@ query Sections($url: ID!) {
       id
       title
       ratio
+      description
       image {
           id
           url

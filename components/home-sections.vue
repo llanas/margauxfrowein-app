@@ -18,7 +18,7 @@
         :style="{
           backgroundImage:
             section.cover != null
-              ? 'url(' + section.cover.image.formats['small'].url + ')'
+              ? 'url(' + section.cover.image.formats['medium'].url + ')'
               : '',
         }"
       ></div>

@@ -10,14 +10,15 @@
     >
       <div class="sections-grid">
         <div
-          v-for="photo in sections[0].photos"
+          v-for="(photo, index) in sections[0].photos"
           :key="photo.id"
           class="section-card"
           :class="{
             'section-tall': photo.ratio === 'tall',
             'section-wide': photo.ratio === 'wide',
-            'section-wide': photo.ratio === 'big',
+            'section-big': photo.ratio === 'big',
           }"
+          @click="selectPhoto(index)"
           @mouseenter="hoveredPhoto = photo.id"
           @mouseleave="hoveredPhoto = null"
         >
@@ -26,25 +27,82 @@
             :style="{
               backgroundImage:
                 photo.image != null
-                  ? 'url(' + photo.image.formats['small'].url + ')'
+                  ? 'url(' + photo.image.formats['medium'].url + ')'
                   : '',
             }"
           ></div>
         </div>
       </div>
     </section>
+    <div class="modal" :class="{ 'is-active': selectedPhotoIndex != null }">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <client-only>
+          <swiper
+            class="swiper has-text-centered"
+            ref="swiper"
+            :options="swiperOptions"
+          >
+            <swiper-slide
+              v-for="photo in sections[0].photos"
+              :key="photo.id"
+              class="slide"
+            >
+              <img
+                :src="photo.image.url"
+                :alt="photo.description"
+                :title="photo.title"
+                class="swiper-lazy"
+              />
+              <h2 class="is-size-4 has-text-weight-semibold">
+                {{ photo.title }}
+              </h2>
+              <h3>{{ photo.description }}</h3>
+            </swiper-slide>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
+          </swiper>
+        </client-only>
+      </div>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        @click="selectedPhotoIndex = null"
+      ></button>
+    </div>
   </div>
 </template>
 
 <script>
 import sectionQuery from "~/apollo/queries/section/section";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   data() {
     return {
       sections: [],
       hoveredPhoto: "",
+      selectedPhotoIndex: null,
+      swiperOptions: {
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        lazy: {
+          loadPrevNext: true,
+        },
+      },
     };
+  },
+  methods: {
+    selectPhoto(photoIndex) {
+      this.selectedPhotoIndex = photoIndex;
+      this.$refs.swiper.$swiper.slideTo(photoIndex);
+    },
   },
   apollo: {
     sections: {
@@ -79,6 +137,11 @@ export default {
 
   .section-wide {
     grid-column: span 2 / auto;
+  }
+
+  .section-big {
+    grid-column: span 2 / auto;
+    grid-row: span 2 / auto;
   }
 }
 
@@ -130,5 +193,18 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.modal-close {
+  z-index: 1000;
+}
+
+.swiper {
+  height: 100%;
+}
+
+.slide > img {
+  max-height: 90%;
+  max-width: 100%;
 }
 </style>
