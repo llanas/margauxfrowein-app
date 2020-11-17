@@ -90,6 +90,10 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/main.scss";
 
+.app {
+  min-height: 100vh;
+}
+
 .navbar {
   position: fixed;
   width: 100%;

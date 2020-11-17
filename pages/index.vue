@@ -1,10 +1,26 @@
 <template>
-  <div class="content" v-if="loading">
-    <header
-      v-if="!!home.cover"
-      class="hero is-fullheight cover-image"
-      :style="{ backgroundImage: `url(${home.cover.image.url})` }"
-    ></header>
+  <div class="content" v-if="!loading">
+    <header>
+      <client-only>
+        <swiper
+          class="swiper has-text-centered"
+          ref="swiper"
+          :options="swiperOptions"
+        >
+          <swiper-slide
+            v-for="photo in home.covers"
+            :key="photo.id"
+            class="slide"
+          >
+            <div
+              class="hero is-fullheight cover-image"
+              :style="{ backgroundImage: `url(${photo.image.url})` }"
+            ></div>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </client-only>
+    </header>
     <section>
       <HomeSections :sections="home.sections"></HomeSections>
     </section>
@@ -13,12 +29,31 @@
 
 <script>
 import homeQuery from "~/apollo/queries/home/home";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   data() {
     return {
-      loading: true,
+      loading: 0,
       home: {},
+      swiperOptions: {
+        loop: true,
+        speed: 1000,
+        lazy: {
+          loadPrevNext: true,
+        },
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+        },
+      },
     };
   },
   apollo: {

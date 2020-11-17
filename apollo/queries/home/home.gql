@@ -3,8 +3,10 @@ query {
   home {
     id
     title
-    cover {
+    covers {
       id
+      title
+      description
       image {
         id
         url
