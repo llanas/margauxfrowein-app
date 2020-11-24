@@ -13,17 +13,9 @@ query {
         formats
       }
     }
-    sections {
-        id
-        title
-    		cover {
-          id
-          image {
-            id
-            formats
-          }
-        }
-      	url
+    carousel {
+        delay
+        speed
     }
   }
 }

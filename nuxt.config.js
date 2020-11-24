@@ -62,8 +62,13 @@ export default {
     modules: [
         // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
         '@nuxtjs/bulma',
-        "@nuxtjs/apollo"
+        "@nuxtjs/apollo",
+        '@nuxtjs/axios',
     ],
+    axios: {
+        // extra config e.g
+        BaseURL: process.env.BACKEND_URL || 'http://localhost:1338'
+    },
     apollo: {
         clientConfigs: {
             default: {

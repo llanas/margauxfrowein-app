@@ -1,16 +1,16 @@
 <template>
-  <div v-if="sections != null && sections.length > 0">
+  <div v-if="section != null">
     <HeaderComponent
-      :title="sections[0].title"
-      :description="sections[0].description"
+      :title="section.title"
+      :description="section.description"
     ></HeaderComponent>
     <section
-      v-if="sections[0].photos != null && sections[0].photos.length > 0"
+      v-if="section.photos != null && section.photos.length > 0"
       class="hero"
     >
       <div class="sections-grid">
         <div
-          v-for="(photo, index) in sections[0].photos"
+          v-for="(photo, index) in section.photos"
           :key="photo.id"
           class="section-card"
           :class="{
@@ -27,7 +27,7 @@
             :style="{
               backgroundImage:
                 photo.image != null
-                  ? 'url(' + photo.image.formats['medium'].url + ')'
+                  ? 'url(' + getPhotoImageUrl(photo) + ')'
                   : '',
             }"
           ></div>
@@ -44,7 +44,7 @@
             :options="swiperOptions"
           >
             <swiper-slide
-              v-for="photo in sections[0].photos"
+              v-for="photo in section.photos"
               :key="photo.id"
               class="slide"
             >
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import sectionQuery from "~/apollo/queries/section/section";
+import sectionQuery from "~/apollo/queries/section/section_url";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 
 export default {
@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      sections: [],
+      section: null,
       hoveredPhoto: "",
       selectedPhotoIndex: null,
       swiperOptions: {
@@ -99,18 +99,27 @@ export default {
     };
   },
   methods: {
+    getPhotoImageUrl(photo) {
+      return photo.image.formats["medium"]
+        ? photo.image.formats["medium"].url
+        : photo.image.formats["large"];
+    },
     selectPhoto(photoIndex) {
       this.selectedPhotoIndex = photoIndex;
       this.$refs.swiper.$swiper.slideTo(photoIndex);
     },
   },
-  apollo: {
-    sections: {
-      query: sectionQuery,
-      variables() {
-        return { url: this.$route.params.url };
-      },
-    },
+  async fetch() {
+    let sections = await fetch(
+      (process.env.BACKEND_URL || "http://localhost:1338") +
+        "/sections?url=" +
+        this.$route.params.url
+    ).then((response) => response.json());
+    if (!!sections && sections.length > 0) {
+      this.section = sections[0];
+    } else {
+      console.error(sections);
+    }
   },
   props: ["url"],
 };

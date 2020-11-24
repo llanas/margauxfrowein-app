@@ -1,0 +1,15 @@
+query Sections($id: ID!) {
+  section(id: $id) {
+    id
+    title
+    url
+    cover {
+        id
+        image {
+            id
+            url
+            formats
+        }
+    }
+  }
+}

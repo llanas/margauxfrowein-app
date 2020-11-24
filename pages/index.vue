@@ -1,29 +1,32 @@
 <template>
-  <div class="content" v-if="!loading">
-    <header>
-      <client-only>
-        <swiper
-          class="swiper has-text-centered"
-          ref="swiper"
-          :options="swiperOptions"
-        >
-          <swiper-slide
-            v-for="photo in home.covers"
-            :key="photo.id"
-            class="slide"
+  <div class="content">
+    <div v-if="loading" class="loader has-text-centered">loading...</div>
+    <div v-else>
+      <header>
+        <client-only>
+          <swiper
+            class="swiper has-text-centered"
+            ref="swiper"
+            :options="swiperOptions"
           >
-            <div
-              class="hero is-fullheight cover-image"
-              :style="{ backgroundImage: `url(${photo.image.url})` }"
-            ></div>
-          </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-      </client-only>
-    </header>
-    <section>
-      <HomeSections :sections="home.sections"></HomeSections>
-    </section>
+            <swiper-slide
+              v-for="photo in home.covers"
+              :key="photo.id"
+              class="slide"
+            >
+              <div
+                class="hero is-fullheight cover-image"
+                :style="{ backgroundImage: `url(${photo.image.url})` }"
+              ></div>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </client-only>
+      </header>
+      <section v-if="home.sections != null && home.sections.length > 0">
+        <HomeSections :sections="home.sections"></HomeSections>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -38,7 +41,7 @@ export default {
   },
   data() {
     return {
-      loading: 0,
+      loading: true,
       home: {},
       swiperOptions: {
         loop: true,
@@ -47,7 +50,7 @@ export default {
           loadPrevNext: true,
         },
         autoplay: {
-          delay: 2500,
+          delay: 1000,
           disableOnInteraction: false,
         },
         pagination: {
@@ -56,15 +59,21 @@ export default {
       },
     };
   },
-  apollo: {
-    $loadingKey: "loading",
-    home: {
-      prefetch: true,
-      query: homeQuery,
-    },
+  async fetch() {
+    this.home = await fetch("http://localhost:1338/home").then((response) =>
+      response.json()
+    );
+    this.swiperOptions.speed = this.home.carousel.speed;
+    this.swiperOptions.autoplay.delay = this.home.carousel.delay;
+    this.loading = false;
   },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 </style>
