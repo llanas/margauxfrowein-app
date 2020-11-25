@@ -1,8 +1,11 @@
 <template>
   <div class="content">
-    <div v-if="loading" class="loader has-text-centered">loading...</div>
+    <div v-if="$fetchState.pending" class="loader" />
+    <div v-else-if="$fetchState.error" class="has-text-centered">
+      An error occured
+    </div>
     <div v-else>
-      <header>
+      <header v-if="home.covers != null">
         <client-only>
           <swiper
             class="swiper has-text-centered"
@@ -41,7 +44,6 @@ export default {
   },
   data() {
     return {
-      loading: true,
       home: {},
       swiperOptions: {
         loop: true,
@@ -59,21 +61,17 @@ export default {
       },
     };
   },
+  fetchDelay: 1000,
   async fetch() {
     this.home = await fetch("http://localhost:1338/home").then((response) =>
       response.json()
     );
+    console.log("recupération speed:" + this.home.carousel.speed);
     this.swiperOptions.speed = this.home.carousel.speed;
     this.swiperOptions.autoplay.delay = this.home.carousel.delay;
-    this.loading = false;
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.loader {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
 </style>
