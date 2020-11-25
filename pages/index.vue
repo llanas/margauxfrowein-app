@@ -63,9 +63,8 @@ export default {
   },
   fetchDelay: 1000,
   async fetch() {
-    this.home = await fetch("http://localhost:1338/home").then((response) =>
-      response.json()
-    );
+    console.dir(this.$axios);
+    this.home = await this.$axios.$get("/home");
     console.log("recupération speed:" + this.home.carousel.speed);
     this.swiperOptions.speed = this.home.carousel.speed;
     this.swiperOptions.autoplay.delay = this.home.carousel.delay;

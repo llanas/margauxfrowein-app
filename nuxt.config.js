@@ -67,12 +67,13 @@ export default {
     ],
     axios: {
         // extra config e.g
-        BaseURL: process.env.BACKEND_URL || 'http://localhost:1338'
+        baseURL: process.env.API_URL || 'http://localhost:1338',
+        debug: process.env.NODE_ENV != 'production'
     },
     apollo: {
         clientConfigs: {
             default: {
-                httpEndpoint: process.env.BACKEND_URL || 'http://localhost:1338/graphql'
+                httpEndpoint: (process.env.API_URL || 'http://localhost:1338') + '/graphql'
             }
         }
     },
