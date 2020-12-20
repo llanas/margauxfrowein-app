@@ -111,9 +111,7 @@ export default {
   },
   async fetch() {
     let sections = await fetch(
-      (process.env.BACKEND_URL || "http://localhost:1338") +
-        "/sections?url=" +
-        this.$route.params.url
+      `${process.env.API_URL}/sections?url=${this.$route.params.url}`
     ).then((response) => response.json());
     if (!!sections && sections.length > 0) {
       this.section = sections[0];
