@@ -1,32 +1,13 @@
 <template>
   <div class="app">
     <nav class="navbar is-transparent" role="navigation">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            Margaux
-            <i>FROWEIN</i>
-          </a>
-          <a
-            role="button"
-            class="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            :class="{ 'is-active': isBurgerToggled }"
-            v-on:click="isBurgerToggled = !isBurgerToggled"
+      <div class="container has-text-centered">
+        <div class="has-text-centered" style="width: 100%">
+          <nuxt-link
+            to="/"
+            class="is-size-2 home-title navbar-item has-text-centered"
+            >Margaux FROWEIN</nuxt-link
           >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div class="navbar-menu" :class="{ 'is-active': isBurgerToggled }">
-          <div class="navbar-start">
-            <nuxt-link to="/" class="navbar-item has-text-centered"
-              >Home</nuxt-link
-            >
-            <nuxt-link to="/contact" class="navbar-item">Contact</nuxt-link>
-          </div>
         </div>
       </div>
     </nav>

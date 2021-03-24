@@ -110,14 +110,10 @@ export default {
     },
   },
   async fetch() {
-    let sections = await fetch(
-      `${process.env.API_URL}/sections?url=${this.$route.params.url}`
-    ).then((response) => response.json());
-    if (!!sections && sections.length > 0) {
-      this.section = sections[0];
-    } else {
-      console.error(sections);
-    }
+    let sections = await this.$axios.$get(
+      `sections?url=${this.$route.params.url}`
+    );
+    this.section = sections[0];
   },
   props: ["url"],
 };

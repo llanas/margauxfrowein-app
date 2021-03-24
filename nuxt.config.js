@@ -21,7 +21,8 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' }
+            { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' },
+            { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?Caveat:wght@600&family=Poiret+One&display=swap" },
         ]
     },
     /*
