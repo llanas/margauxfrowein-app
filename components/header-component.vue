@@ -3,7 +3,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">{{ title }}</h1>
-        <h2 class="title">{{ description }}</h2>
+        <h2 class="descriptionbon">{{ description }}</h2>
       </div>
     </div>
   </header>
@@ -15,5 +15,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "~assets/main.scss";
+
+.title {
+  color: whitesmoke;
+}
 </style>
